@@ -14,8 +14,8 @@ taken from Python 2.6.5's ``test`` regression tests module.
 """
 from CloseableQueue import CloseableQueue, Closed
 from CloseableQueue import CloseableLifoQueue, CloseablePriorityQueue
-from test_queue import BlockingTestMixin, BaseQueueTest
-from test_queue import FailingQueue, FailingQueueTest
+from .test_queue import BlockingTestMixin, BaseQueueTest
+from .test_queue import FailingQueue, FailingQueueTest
 import unittest
 
 # Because the method queue_test.BaseQueueTest.simple_queue_test
@@ -64,12 +64,12 @@ class FailingCloseableQueue(CloseableQueue):
     def _put(self, item):
         if self.fail_next_put:
             self.fail_next_put = False
-            raise FailingQueueException, "You Lose"
+            raise FailingQueueException("You Lose")
         return CloseableQueue._put(self, item)
     def _get(self):
         if self.fail_next_get:
             self.fail_next_get = False
-            raise FailingQueueException, "You Lose"
+            raise FailingQueueException("You Lose")
         return CloseableQueue._get(self)
 
 class FailingCloseableQueueTest(FailingQueueTest):
@@ -252,7 +252,7 @@ class CloseableQueueTest(unittest.TestCase, BlockingTestMixin):
         self.cum = 0
         for i in (0,1):
             threading.Thread(target=self.worker, args=(q,)).start()
-        for i in xrange(100):
+        for i in range(100):
             q.put(i)
         q.close()
         q.join()

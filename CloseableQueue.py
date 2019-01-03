@@ -1,7 +1,11 @@
 """Defines the CloseableQueue class and the Close exception class."""
 
-from Queue import Empty, Full, _time
-import Queue as _Queue
+try:
+    from queue import Empty, Full, time as _time
+    import queue as _Queue
+except ImportError:
+    from Queue import Empty, Full, _time
+    import Queue as _Queue
 
 class Closed(Exception):
     """Exception raised by CloseableQueue.put/get on a closed queue."""

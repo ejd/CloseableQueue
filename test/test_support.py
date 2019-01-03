@@ -1,4 +1,5 @@
 """Supporting definitions for the Python regression tests."""
+from __future__ import print_function
 
 if __name__ != 'test.test_support':
     raise ImportError('test_support must be imported from the test package')
@@ -95,7 +96,7 @@ def unlink(filename):
 def rmtree(path):
     try:
         shutil.rmtree(path)
-    except OSError, e:
+    except (OSError) as e:
         # Unix returns ENOENT, Windows returns ESRCH.
         if e.errno not in (errno.ENOENT, errno.ESRCH):
             raise
@@ -289,10 +290,10 @@ else:
             except UnicodeEncodeError:
                 pass
             else:
-                print \
+                print(\
                 'WARNING: The filename %r CAN be encoded by the filesystem.  ' \
                 'Unicode filename tests may not be effective' \
-                % TESTFN_UNICODE_UNENCODEABLE
+                % TESTFN_UNICODE_UNENCODEABLE)
 
 # Make sure we can write to TESTFN, try in /tmp if we can't
 fp = None
@@ -763,7 +764,7 @@ def run_doctest(module, verbosity=None):
     finally:
         sys.stdout = save_stdout
     if verbose:
-        print 'doctest (%s) ... %d tests with zero failures' % (module.__name__, t)
+        print('doctest (%s) ... %d tests with zero failures' % (module.__name__, t))
     return f, t
 
 #=======================================================================
