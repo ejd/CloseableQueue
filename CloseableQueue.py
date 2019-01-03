@@ -184,12 +184,12 @@ def dequeue(q, getargs={}, on_empty='stop'):
         while True:
             yield q.get(**getargs)
     except Closed:
-        raise StopIteration
+        return
     except Empty:
         if on_empty == 'raise':
             raise
         elif on_empty == 'stop':
-            raise StopIteration
+            return
         else:
             yield on_empty
 

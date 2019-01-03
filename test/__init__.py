@@ -256,8 +256,8 @@ class CloseableQueueTest(unittest.TestCase, BlockingTestMixin):
             q.put(i)
         q.close()
         q.join()
-        self.assertEquals(self.cum, sum(range(100)),
-                          "q.join() did not block until all tasks were done")
+        self.assertEqual(self.cum, sum(range(100)),
+                         "q.join() did not block until all tasks were done")
         try:
             for i in (0,1):
                 q.put(None)         # instruct the threads to close
